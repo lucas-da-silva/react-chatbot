@@ -7,8 +7,7 @@
         "plugin:react/recommended",
         "airbnb"
     ],
-    "overrides": [
-    ],
+    "overrides": [],
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module"
@@ -17,5 +16,7 @@
         "react"
     ],
     "rules": {
+        "linebreak-style": "off",
+        "react/require-default-props": "off"
     }
 }
