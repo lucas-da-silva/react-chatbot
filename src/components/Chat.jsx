@@ -12,29 +12,30 @@ export default function Chat() {
   return (
     <Card className="w-[440px]">
       <CardHeader>
-        <CardTitle>Chatbot</CardTitle>
+        <CardTitle>ChatBot</CardTitle>
         <CardDescription>Created for FullStack test</CardDescription>
       </CardHeader>
       <CardContent>
-        <ScrollArea className="h-[600px] w-full pr-4">
-          <div className="flex gap-3 text-slate-600 text-sm mb-4">
-            <Avatar>
-              <AvatarFallback>USER</AvatarFallback>
-              <AvatarImage src="https://cdn-icons-png.flaticon.com/128/1077/1077114.png" />
-            </Avatar>
-            <p className="leading-relaxed pt-2">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis vitae, temporibus, laborum perferendis fugit veniam ducimus numquam reprehenderit impedit cum eius exercitationem reiciendis earum quidem explicabo laboriosam autem vel quod?
-            </p>
-          </div>
-          <div className="flex gap-3 text-slate-600 text-sm">
-            <Avatar>
+        <ScrollArea className="h-[600px] w-full pr-4 mt-2">
+          <div className="flex gap-2 text-[#1a0400] font-medium text-sm mb-4">
+            <Avatar className="self-end h-6 w-6">
               <AvatarFallback>BOT</AvatarFallback>
               <AvatarImage src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/512px-ChatGPT_logo.svg.png" />
             </Avatar>
-            <p className="leading-relaxed pt-2">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis vitae, temporibus, laborum perferendis fugit veniam ducimus numquam reprehenderit impedit cum eius exercitationem reiciendis earum quidem explicabo laboriosam autem vel quod?
-            </p>
+            <div className="bg-zinc-100 p-3 rounded-r-2xl rounded-t-2xl">
+              <p className="leading-relaxed">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores, doloribus fugit? Porro explicabo ducimus distinctio, enim, laboriosam cum similique officiis debitis, modi earum aut exercitationem! Totam ullam soluta voluptatibus quos!
+              </p>
+            </div>
           </div>
+          <div className="flex text-sm mb-4 justify-end text-[#1a0400] font-medium">
+            <div className="bg-[#fae5ca] p-3 rounded-l-xl rounded-t-xl">
+              <p className="leading-relaxed">
+                Qual a
+              </p>
+            </div>
+          </div>
+
         </ScrollArea>
       </CardContent>
       <CardFooter>
