@@ -47,7 +47,7 @@ export default function Chat() {
   };
 
   return (
-    <Card className="w-[440px]">
+    <Card className="w-[440px] mb-12">
       <CardHeader>
         <CardTitle>ChatBot</CardTitle>
         <CardDescription>Created for FullStack test</CardDescription>
