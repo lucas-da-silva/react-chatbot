@@ -1,11 +1,18 @@
+'use client';
+
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import ChatContext from './ChatContext';
-import { CONVERSATION_START, LOAN_OPTIONS } from '../lib/chatbotData';
+import { CONVERSATION_END, CONVERSATION_START, LOAN_OPTIONS } from '../lib/chatbotData';
 
 let messageIdCounter = 1;
+const firstMessage = {
+  id: messageIdCounter,
+  content: 'Hello! 👋',
+  role: 'assistant',
+};
 
-const createNewAssistantMessage = (content, options, reference) => {
+const createNewAssistantMessage = (content, options = null, reference = null) => {
   const newMessage = {
     id: messageIdCounter += 1,
     content,
@@ -66,40 +73,49 @@ const responseConditions = [
 ];
 
 export default function ChatProvider({ children }) {
-  const [messages, setMessages] = useState([
-    {
-      id: messageIdCounter,
-      content: 'Hello! 👋',
-      role: 'assistant',
-    },
-  ]);
+  const [messages, setMessages] = useState([firstMessage]);
   const [user, setUser] = useState('');
 
   const getBotResponse = (message) => {
-    const lastMessage = messages[messages.length - 1].content;
-    if (lastMessage.includes('username')) {
-      setUser(message);
-    }
+    setTimeout(() => {
+      const lastMessage = messages[messages.length - 1].content;
+      if (lastMessage.includes('username')) {
+        setUser(message);
+      }
 
-    const isResponse = responseConditions.find(({ check }) => check(message, lastMessage));
+      const isResponse = responseConditions.find(({ check }) => check(message, lastMessage));
 
-    if (isResponse) {
-      const response = isResponse.response({ user, message });
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        createNewAssistantMessage(response.content, response.options, response.reference)]);
-    }
+      if (isResponse) {
+        const response = isResponse.response({ user, message });
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          createNewAssistantMessage(response.content, response.options, response.reference)]);
+      }
+    }, 1000);
   };
 
   const sendMessage = (message) => {
-    if (!messages[messages.length - 1].content.includes('password')) {
+    const lastMessage = messages[messages.length - 1].content;
+
+    if (!lastMessage.includes('password')) {
       setMessages((prevMessages) => [...prevMessages, createNewUserMessage(message)]);
     }
 
-    getBotResponse(message);
+    if (message === CONVERSATION_END) {
+      setMessages((prevMessages) => [...prevMessages, createNewAssistantMessage('Bye! 👋')]);
+      setTimeout(() => {
+        setMessages([firstMessage]);
+      }, 3000);
+    } else {
+      getBotResponse(message);
+    }
   };
 
-  const contextType = useMemo(() => ({ messages, sendMessage }), [messages, sendMessage]);
+  const contextType = useMemo(
+    () => (
+      { messages, sendMessage }),
+    [messages, sendMessage],
+  );
 
   return (
     <ChatContext.Provider value={contextType}>

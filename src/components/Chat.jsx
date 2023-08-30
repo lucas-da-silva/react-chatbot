@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useContext, useState } from 'react';
 import {
   Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription,
