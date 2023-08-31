@@ -3,14 +3,14 @@
 import React, { useContext, useState } from 'react';
 import {
   Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription,
-} from '../ui/card';
-import { Input } from '../ui/input';
-import { Button } from '../ui/button';
-import { ScrollArea } from '../ui/scroll-area';
+} from '@components/ui/card';
+import { Input } from '@components/ui/input';
+import { Button } from '@components/ui/button';
+import { ScrollArea } from '@components/ui/scroll-area';
+import { ChatContext } from '@/provider';
 import BotCardContent from './BotCardContent';
 import BotMessageWithOptions from './BotMessageWithOptions';
 import UserMessage from './UserMessage';
-import { ChatContext } from '../../provider';
 import BotMessageWithReference from './BotMessageWithReference';
 
 export default function Chat() {

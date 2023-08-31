@@ -2,8 +2,8 @@
 
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { CONVERSATION_END, CONVERSATION_START, LOAN_OPTIONS } from '@lib/chatbotData';
 import ChatContext from './ChatContext';
-import { CONVERSATION_END, CONVERSATION_START, LOAN_OPTIONS } from '../lib/chatbotData';
 
 let messageIdCounter = 1;
 const firstMessage = {

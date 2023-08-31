@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { ChatContext } from '../../provider';
+import { ChatContext } from '@/provider';
 import BotCardContent from './BotCardContent';
 
 export default function BotMessageWithOptions({ message, options }) {

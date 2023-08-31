@@ -1,8 +1,8 @@
 import React from 'react';
-import { Header, HistoricTable } from '../../components';
 import {
   Card, CardContent, CardHeader, CardTitle,
-} from '../../components/ui/card';
+} from '@components/ui/card';
+import { Header, HistoricTable } from '@/components';
 
 export default function Home() {
   return (

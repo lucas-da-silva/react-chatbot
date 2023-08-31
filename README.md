@@ -9,10 +9,10 @@ The chatbot aims to simulate natural conversations with users, offering informat
 
 ## Technologies used
 
-- [React](https://pt-br.reactjs.org/) - JavaScript library for creating user interfaces;
-- [Next.js](https://nextjs.org/) - A React framework with hybrid static & server rendering, and route pre-fetching, etc;
-- [Tailwind CSS](https://tailwindcss.com/) - CSS framework;
-- [Shadcn/ui](https://ui.shadcn.com/) - Re-usable components built using Radix UI and Tailwind CSS.
+- [React](https://pt-br.reactjs.org/) - JavaScript library for creating user interfaces
+- [Next.js](https://nextjs.org/) - A React framework with hybrid static & server rendering, and route pre-fetching, etc
+- [Tailwind CSS](https://tailwindcss.com/) - CSS framework
+- [Shadcn/ui](https://ui.shadcn.com/) - Re-usable components built using Radix UI and Tailwind CSS
 
 ## Run locally
 
@@ -37,7 +37,7 @@ npm install
 Start the server
 
 ```bash
-npm run start
+npm run dev
 ```
 
 ## Project structure

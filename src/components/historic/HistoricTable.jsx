@@ -4,9 +4,9 @@ import React, { useContext } from 'react';
 
 import {
   Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow,
-} from '../ui/table';
-import { ChatContext } from '../../provider';
-import { Button } from '../ui/button';
+} from '@components/ui/table';
+import { ChatContext } from '@/provider';
+import { Button } from '@components/ui/button';
 
 const columns = [
   {

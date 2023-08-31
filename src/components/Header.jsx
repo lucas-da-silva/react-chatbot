@@ -15,7 +15,7 @@ export default function Header() {
     <header className="flex mt-5 mb-14 justify-end">
       <NavigationMenu className="self-end">
         <NavigationMenuList>
-          <NavigationMenuItem className="space-x-5">
+          <NavigationMenuItem className="space-x-3">
             <Link href="/" legacyBehavior passHref>
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 Chat
