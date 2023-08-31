@@ -50,7 +50,7 @@ export default function Chat() {
     <section className="self-center">
       <Card className="w-[440px]">
         <CardHeader>
-          <CardTitle>ChatBot</CardTitle>
+          <CardTitle>Chatbot</CardTitle>
           <CardDescription>Created for FullStack test</CardDescription>
         </CardHeader>
         <CardContent>
