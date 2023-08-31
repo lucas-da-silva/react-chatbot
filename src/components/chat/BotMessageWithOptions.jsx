@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import { ChatContext } from '@/provider';
 import BotCardContent from './BotCardContent';
 
-export default function BotMessageWithOptions({ message, options }) {
+export default function BotMessageWithOptions({ message = '', options }) {
   const { sendMessage } = useContext(ChatContext);
 
   return (
     <BotCardContent>
-      <p className="leading-relaxed">
-        {message}
-      </p>
+      {message.length > 0 && <p className="leading-relaxed">{message}</p>}
       <div className="mt-1 space-y-2 ">
         {options.map(({ id, option, response }) => (
           <button
@@ -28,7 +26,7 @@ export default function BotMessageWithOptions({ message, options }) {
 }
 
 BotMessageWithOptions.propTypes = {
-  message: PropTypes.string.isRequired,
+  message: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.shape({
     option: PropTypes.string.isRequired,
   })),

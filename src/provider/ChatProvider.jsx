@@ -2,75 +2,16 @@
 
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { CONVERSATION_END, CONVERSATION_START, LOAN_OPTIONS } from '@lib/chatbotData';
+import {
+  CONVERSATION_END,
+  HELP_START_OPTIONS,
+  createNewAssistantMessage,
+  createNewUserMessage,
+  firstMessage,
+  responseConditions,
+  resetMessageIdCounter,
+} from '@/utils';
 import ChatContext from './ChatContext';
-
-let messageIdCounter = 1;
-const firstMessage = {
-  id: messageIdCounter,
-  content: 'Hello! 👋',
-  role: 'assistant',
-};
-
-const createNewAssistantMessage = (content, options = null, reference = null) => {
-  const newMessage = {
-    id: messageIdCounter += 1,
-    content,
-    role: 'assistant',
-  };
-
-  if (options) {
-    newMessage.options = options;
-  }
-  if (reference) {
-    newMessage.reference = reference;
-  }
-
-  return newMessage;
-};
-
-const createNewUserMessage = (content) => {
-  const newMessage = {
-    id: messageIdCounter += 1,
-    content,
-    role: 'user',
-  };
-  return newMessage;
-};
-
-const responseConditions = [
-  {
-    check: (message, _) => CONVERSATION_START.includes(message),
-    response: () => ({ content: 'Is a pleasure! What is your username?' }),
-  },
-  {
-    check: (_, question) => question.includes('username'),
-    response: () => ({ content: 'What is your password?' }),
-  },
-  {
-    check: (_, question) => question.includes('password'),
-    response: (context) => ({
-      content: `Welcome ${context.user}! I'm your assistant, how can I help you?`,
-    }),
-  },
-  {
-    check: (message, _) => LOAN_OPTIONS.some(({ response }) => response === message),
-    response: (context) => {
-      const loanOption = LOAN_OPTIONS.find(({ response }) => response === context.message);
-      return {
-        content: loanOption.description,
-        reference: loanOption.reference,
-      };
-    },
-  },
-  {
-    check: (message, _) => message.includes('loan'),
-    response: () => ({
-      content: 'Loan options:',
-      options: LOAN_OPTIONS,
-    }),
-  },
-];
 
 export default function ChatProvider({ children }) {
   const [historicMessages, setHistoricMessages] = useState([]);
@@ -79,10 +20,30 @@ export default function ChatProvider({ children }) {
   const [isTyping, setIsTyping] = useState(false);
   const [isFinishedConversation, setIsFinishedConversation] = useState(false);
 
+  const handleAssistantResponse = (response) => {
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      createNewAssistantMessage(response.content, response.options, response.reference),
+    ]);
+  };
+
+  const handleFallbackAssistantResponse = () => {
+    if (!user) {
+      setMessages((prevMessages) => [
+        ...prevMessages, createNewAssistantMessage(null, HELP_START_OPTIONS),
+      ]);
+    } else {
+      setMessages((prevMessages) => [...prevMessages, createNewAssistantMessage(null, [{
+        id: 1, option: 'Loan', response: 'loan', description: 'Loan',
+      }])]);
+    }
+  };
+
   const getBotResponse = (message) => {
     setIsTyping(true);
     setTimeout(() => {
       const lastMessage = messages[messages.length - 1].content;
+
       if (lastMessage.includes('username')) {
         setUser(message);
       }
@@ -91,11 +52,12 @@ export default function ChatProvider({ children }) {
 
       if (isResponse) {
         const response = isResponse.response({ user, message });
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          createNewAssistantMessage(response.content, response.options, response.reference)]);
-        setIsTyping(false);
+        handleAssistantResponse(response);
+      } else {
+        handleFallbackAssistantResponse();
       }
+
+      setIsTyping(false);
     }, 1000);
   };
 
@@ -109,7 +71,7 @@ export default function ChatProvider({ children }) {
     }]);
     setUser('');
     setTimeout(() => {
-      messageIdCounter = 1;
+      resetMessageIdCounter();
       setMessages([firstMessage]);
       setIsFinishedConversation(false);
     }, 2000);
