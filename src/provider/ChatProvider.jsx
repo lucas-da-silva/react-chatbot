@@ -76,8 +76,11 @@ export default function ChatProvider({ children }) {
   const [historicMessages, setHistoricMessages] = useState([]);
   const [messages, setMessages] = useState([firstMessage]);
   const [user, setUser] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const [isFinishedConversation, setIsFinishedConversation] = useState(false);
 
   const getBotResponse = (message) => {
+    setIsTyping(true);
     setTimeout(() => {
       const lastMessage = messages[messages.length - 1].content;
       if (lastMessage.includes('username')) {
@@ -91,11 +94,13 @@ export default function ChatProvider({ children }) {
         setMessages((prevMessages) => [
           ...prevMessages,
           createNewAssistantMessage(response.content, response.options, response.reference)]);
+        setIsTyping(false);
       }
     }, 1000);
   };
 
   const finishConversation = () => {
+    setIsFinishedConversation(true);
     setMessages((prevMessages) => [...prevMessages, createNewAssistantMessage('Bye! 👋')]);
     setHistoricMessages((prevMessages) => [...prevMessages, {
       id: prevMessages.length + 1,
@@ -104,8 +109,10 @@ export default function ChatProvider({ children }) {
     }]);
     setUser('');
     setTimeout(() => {
+      messageIdCounter = 1;
       setMessages([firstMessage]);
-    }, 3000);
+      setIsFinishedConversation(false);
+    }, 2000);
   };
 
   const sendMessage = (message) => {
@@ -124,8 +131,10 @@ export default function ChatProvider({ children }) {
 
   const contextType = useMemo(
     () => (
-      { messages, sendMessage, historicMessages }),
-    [messages, sendMessage, historicMessages],
+      {
+        messages, sendMessage, historicMessages, isTyping, isFinishedConversation,
+      }),
+    [messages, sendMessage, historicMessages, isTyping, isFinishedConversation],
   );
 
   return (

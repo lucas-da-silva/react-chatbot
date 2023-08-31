@@ -14,9 +14,12 @@ import BotCardContent from './BotCardContent';
 import BotMessageWithOptions from './BotMessageWithOptions';
 import UserMessage from './UserMessage';
 import BotMessageWithReference from './BotMessageWithReference';
+import LoadingDots from './LoadingDots';
 
 export default function Chat() {
-  const { messages, sendMessage } = useContext(ChatContext);
+  const {
+    messages, sendMessage, isTyping, isFinishedConversation,
+  } = useContext(ChatContext);
   const [chatInput, setChatInput] = useState('');
   const lastMessageRef = useRef(null);
 
@@ -69,12 +72,14 @@ export default function Chat() {
               ? (
                 <div
                   ref={index === messages.length - 1 ? lastMessageRef : null}
+                  key={message.id}
                 >
                   {renderBotMessage(message)}
                 </div>
               )
               : <UserMessage key={message.id} message={message} />))
           }
+            {isTyping && <LoadingDots />}
           </ScrollArea>
         </CardContent>
         <CardFooter>
@@ -82,9 +87,10 @@ export default function Chat() {
             <Input
               placeholder="How can I help you?"
               value={chatInput}
+              disabled={isFinishedConversation}
               onChange={(e) => setChatInput(e.target.value)}
             />
-            <Button type="submit">Send</Button>
+            <Button disabled={isFinishedConversation} type="submit">Send</Button>
           </form>
         </CardFooter>
       </Card>
