@@ -1,6 +1,8 @@
 'use client';
 
-import React, { useContext, useState } from 'react';
+import React, {
+  useContext, useState, useRef, useEffect,
+} from 'react';
 import {
   Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription,
 } from '@components/ui/card';
@@ -16,6 +18,13 @@ import BotMessageWithReference from './BotMessageWithReference';
 export default function Chat() {
   const { messages, sendMessage } = useContext(ChatContext);
   const [chatInput, setChatInput] = useState('');
+  const lastMessageRef = useRef(null);
+
+  useEffect(() => {
+    if (lastMessageRef.current) {
+      lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,8 +65,14 @@ export default function Chat() {
         <CardContent>
           <ScrollArea className="h-[600px] w-full pr-4 mt-2">
             {
-            messages.map((message) => (message.role === 'assistant'
-              ? renderBotMessage(message)
+            messages.map((message, index) => (message.role === 'assistant'
+              ? (
+                <div
+                  ref={index === messages.length - 1 ? lastMessageRef : null}
+                >
+                  {renderBotMessage(message)}
+                </div>
+              )
               : <UserMessage key={message.id} message={message} />))
           }
           </ScrollArea>
