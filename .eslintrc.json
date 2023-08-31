@@ -6,7 +6,8 @@
     "extends": [
         "plugin:react/recommended",
         "airbnb",
-        "plugin:@next/next/recommended"
+        "plugin:@next/next/recommended",
+        "plugin:import/errors"
     ],
     "overrides": [],
     "parserOptions": {
@@ -19,6 +20,36 @@
     "rules": {
         "linebreak-style": "off",
         "react/require-default-props": "off",
-        "global-require": "off"
+        "global-require": "off",
+        "no-unused-vars": [
+            "error",
+            {
+                "argsIgnorePattern": "^_"
+            }
+        ]
+    },
+    "settings": {
+        "import/resolver": {
+            "alias": {
+                "extensions": [
+                    ".js",
+                    ".jsx"
+                ],
+                "map": [
+                    [
+                        "@",
+                        "./src"
+                    ],
+                    [
+                        "@components",
+                        "./src/components"
+                    ],
+                    [
+                        "@lib",
+                        "./src/lib"
+                    ]
+                ]
+            }
+        }
     }
 }
