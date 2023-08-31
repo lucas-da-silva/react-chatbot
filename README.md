@@ -19,25 +19,25 @@ The chatbot aims to simulate natural conversations with users, offering informat
 Clone the project
 
 ```bash
-  git clone https://github.com/lucas-da-silva/react-chatbot.git
+git clone https://github.com/lucas-da-silva/react-chatbot.git
 ```
 
 Go to project directory
 
 ```bash
-  cd react-chatbot
+cd react-chatbot
 ```
 
 Install the dependencies
 
 ```bash
-  npm install
+npm install
 ```
 
 Start the server
 
 ```bash
-  npm run start
+npm run start
 ```
 
 ## Project structure

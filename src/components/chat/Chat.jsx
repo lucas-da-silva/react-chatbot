@@ -3,14 +3,14 @@
 import React, { useContext, useState } from 'react';
 import {
   Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription,
-} from './ui/card';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
-import { ScrollArea } from './ui/scroll-area';
+} from '../ui/card';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
+import { ScrollArea } from '../ui/scroll-area';
 import BotCardContent from './BotCardContent';
 import BotMessageWithOptions from './BotMessageWithOptions';
 import UserMessage from './UserMessage';
-import { ChatContext } from '../provider';
+import { ChatContext } from '../../provider';
 import BotMessageWithReference from './BotMessageWithReference';
 
 export default function Chat() {
@@ -51,7 +51,7 @@ export default function Chat() {
       <Card className="w-[440px]">
         <CardHeader>
           <CardTitle>Chatbot</CardTitle>
-          <CardDescription>Created for FullStack test</CardDescription>
+          <CardDescription>Introduce yourself, ask questions and learn</CardDescription>
         </CardHeader>
         <CardContent>
           <ScrollArea className="h-[600px] w-full pr-4 mt-2">
