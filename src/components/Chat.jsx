@@ -47,30 +47,32 @@ export default function Chat() {
   };
 
   return (
-    <Card className="w-[440px] mb-12">
-      <CardHeader>
-        <CardTitle>ChatBot</CardTitle>
-        <CardDescription>Created for FullStack test</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ScrollArea className="h-[600px] w-full pr-4 mt-2">
-          {
+    <section className="self-center">
+      <Card className="w-[440px]">
+        <CardHeader>
+          <CardTitle>ChatBot</CardTitle>
+          <CardDescription>Created for FullStack test</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ScrollArea className="h-[600px] w-full pr-4 mt-2">
+            {
             messages.map((message) => (message.role === 'assistant'
               ? renderBotMessage(message)
               : <UserMessage key={message.id} message={message} />))
           }
-        </ScrollArea>
-      </CardContent>
-      <CardFooter>
-        <form onSubmit={handleSubmit} className="w-full flex gap-2">
-          <Input
-            placeholder="How can I help you?"
-            value={chatInput}
-            onChange={(e) => setChatInput(e.target.value)}
-          />
-          <Button type="submit">Send</Button>
-        </form>
-      </CardFooter>
-    </Card>
+          </ScrollArea>
+        </CardContent>
+        <CardFooter>
+          <form onSubmit={handleSubmit} className="w-full flex gap-2">
+            <Input
+              placeholder="How can I help you?"
+              value={chatInput}
+              onChange={(e) => setChatInput(e.target.value)}
+            />
+            <Button type="submit">Send</Button>
+          </form>
+        </CardFooter>
+      </Card>
+    </section>
   );
 }

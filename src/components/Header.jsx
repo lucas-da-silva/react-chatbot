@@ -12,16 +12,23 @@ import {
 
 export default function Header() {
   return (
-    <NavigationMenu className="self-end pr-10">
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <Link href="/historic" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Historic
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
+    <header className="flex mt-5 mb-14 justify-end">
+      <NavigationMenu className="self-end">
+        <NavigationMenuList>
+          <NavigationMenuItem className="space-x-5">
+            <Link href="/" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Chat
+              </NavigationMenuLink>
+            </Link>
+            <Link href="/historic" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Historic
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+    </header>
   );
 }
