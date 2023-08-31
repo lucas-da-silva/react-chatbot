@@ -73,6 +73,7 @@ const responseConditions = [
 ];
 
 export default function ChatProvider({ children }) {
+  const [historicMessages, setHistoricMessages] = useState([]);
   const [messages, setMessages] = useState([firstMessage]);
   const [user, setUser] = useState('');
 
@@ -94,6 +95,19 @@ export default function ChatProvider({ children }) {
     }, 1000);
   };
 
+  const finishConversation = () => {
+    setMessages((prevMessages) => [...prevMessages, createNewAssistantMessage('Bye! 👋')]);
+    setHistoricMessages((prevMessages) => [...prevMessages, {
+      id: prevMessages.length + 1,
+      title: `Conversation ${user || 'user'} #${prevMessages.length + 1} - ${new Date().toLocaleString()}`,
+      messages,
+    }]);
+    setUser('');
+    setTimeout(() => {
+      setMessages([firstMessage]);
+    }, 3000);
+  };
+
   const sendMessage = (message) => {
     const lastMessage = messages[messages.length - 1].content;
 
@@ -102,10 +116,7 @@ export default function ChatProvider({ children }) {
     }
 
     if (message === CONVERSATION_END) {
-      setMessages((prevMessages) => [...prevMessages, createNewAssistantMessage('Bye! 👋')]);
-      setTimeout(() => {
-        setMessages([firstMessage]);
-      }, 3000);
+      finishConversation();
     } else {
       getBotResponse(message);
     }
@@ -113,8 +124,8 @@ export default function ChatProvider({ children }) {
 
   const contextType = useMemo(
     () => (
-      { messages, sendMessage }),
-    [messages, sendMessage],
+      { messages, sendMessage, historicMessages }),
+    [messages, sendMessage, historicMessages],
   );
 
   return (
